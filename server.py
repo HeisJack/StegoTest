@@ -1,5 +1,6 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
+import threading
 import ssl
 import os
 
@@ -10,7 +11,6 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         path = path + '/airplane.png'
         print("Path: ", path)
         if path.startswith('images/'):
-            print("1st level")
             self.send_response(200)
             self.send_header('Content-Type', 'image/png')
             self.end_headers()
@@ -19,10 +19,16 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         else:
             self.send_error(404)
 
+def stop_server():
+    httpd.shutdown()
+
 httpd = HTTPServer(('localhost', 4443), MyRequestHandler)
 
 httpd.socket = ssl.wrap_socket (httpd.socket, 
-        keyfile="key.pem", 
-        certfile='cert.pem', server_side=True)
+        keyfile="certs/key.pem", 
+        certfile='certs/cert.pem', server_side=True)
+
+t = threading.Timer(60.0, stop_server)
+t.start()
 
 httpd.serve_forever()
