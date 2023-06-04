@@ -1,7 +1,6 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
 import threading
-import ssl
 import random
 import sys
 import os
@@ -68,11 +67,7 @@ def stop_server():
     httpd.shutdown()
 
 try:
-    httpd = HTTPServer(('localhost', 4443), MyRequestHandler)
-
-    httpd.socket = ssl.wrap_socket (httpd.socket, 
-            keyfile="certs/key.pem", 
-            certfile='certs/cert.pem', server_side=True)
+    httpd = HTTPServer(('localhost', 80), MyRequestHandler)
 
     t = threading.Timer(310.0, stop_server)
     t.start()
