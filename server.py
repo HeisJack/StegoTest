@@ -28,7 +28,7 @@ httpd.socket = ssl.wrap_socket (httpd.socket,
         keyfile="certs/key.pem", 
         certfile='certs/cert.pem', server_side=True)
 
-t = threading.Timer(60.0, stop_server)
+t = threading.Timer(140.0, stop_server)
 t.start()
 
 httpd.serve_forever()
