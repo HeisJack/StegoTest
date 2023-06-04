@@ -1,2 +1,4 @@
 certs/
 messages/
+extracted_messages/*
+stego/*
