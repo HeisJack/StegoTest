@@ -201,9 +201,26 @@ elif(args.mode == "totalSizes"):
     plt.bar(file_names, file_sizes)
     plt.xlabel('Mode')
     plt.ylabel('File Size (MB)')
+    plt.title("Method by file size")
     plt.show()
 
+elif(args.mode == "totalProtocols"):
 
+    # Assuming df1, df2, and df3 are the three DataFrames
+    protocol_counts1 = df_http['protocol'].value_counts()
+    protocol_counts2 = df_tls['protocol'].value_counts()
+    protocol_counts3 = df_stego_tls['protocol'].value_counts()
+
+    # Concatenate the three Series into a single DataFrame
+    protocol_counts = pd.concat([protocol_counts1, protocol_counts2, protocol_counts3], axis=1)
+    protocol_counts.columns = ['stego', 'tls', 'stego+tls']
+
+    # Plot the data as a bar chart
+    protocol_counts.plot(kind='bar')
+    plt.xlabel('Protocol')
+    plt.ylabel('Number of Occurrences')
+    plt.title("Protocol counts by method")
+    plt.show()
 
 
 
