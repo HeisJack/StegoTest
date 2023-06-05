@@ -2,3 +2,5 @@ certs/
 messages/
 extracted_messages/*
 stego/*
+pcaps/*
+excel/*

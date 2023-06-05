@@ -13,7 +13,7 @@ class MyRequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'image/png')
             self.end_headers()
-            path = path + '/' + self.randomTLSContent()
+            path = path  + self.randomTLSContent()
             print("Path: ", path)
             with open(path, 'rb') as f:
                 self.wfile.write(f.read())
@@ -21,14 +21,14 @@ class MyRequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'image/png')
             self.end_headers()
-            path = path + '/' + self.getStegoContent()
+            path = path  + self.getStegoContent()
             with open(path, 'rb') as f:
                 self.wfile.write(f.read())
         elif path.startswith('messages/'):
             self.send_response(200)
             self.send_header('Content-Type', 'text/plain')
             self.end_headers()
-            path = path + '/' + self.getMessageContent()
+            path = path + self.getMessageContent()
             with open(path, 'rb') as f:
                 self.wfile.write(f.read())
         else:
